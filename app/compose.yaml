@@ -1,0 +1,43 @@
+services:
+  gis-server:
+    build:
+      context: ./gismodule
+    ports:
+      - 8000:8000
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: "db"
+      DEBUG: ${DJANGO_DEBUG}
+    env_file:
+      - ./.env
+
+  db:
+    image: postgis/postgis:18-3.6
+    restart: always
+    user: postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    expose:
+      - 5432
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - db-data:/var/lib/postgresql
+    env_file:
+      - ./.env
+
+volumes:
+  db-data:
+
+
+
