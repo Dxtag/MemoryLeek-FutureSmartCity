@@ -13,10 +13,12 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_HOST: "db"
-      DEBUG: ${DJANGO_DEBUG}
+      POSTGRES_HOST: db
+      DEBUG: ${DEBUG}
+    volumes:
+    - ./gismodule/gismodule:/app
     env_file:
-      - ./.env
+      - .env
 
   db:
     image: postgis/postgis:18-3.6
@@ -36,21 +38,14 @@ services:
     volumes:
       - db-data:/var/lib/postgresql
     env_file:
-      - ./.env
+      - .env
   route-backend:
     image: osrm/osrm-backend
     ports:
       - 5000:5000
-    environment:
-      - algorithm=mld
     volumes:
      - ./osm-data:/data
     command: osrm-routed --algorithm mld /data/data.osrm
     
-
-
 volumes:
   db-data:
-
-
-

@@ -9,8 +9,8 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
+VOLUME [ "/app" ]
 WORKDIR /app
-
 # Geodjango dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gdal-bin \
@@ -41,12 +41,7 @@ RUN adduser \
 # into this layer.
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt
-
+    python -m pip install -r requirements.txt 
 USER appuser
-
-COPY /gismodule .
-
 EXPOSE 8000
-
 CMD ["gunicorn", "gismodule.wsgi", "--bind=0.0.0.0:8000"]
