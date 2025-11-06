@@ -1,3 +1,6 @@
 from django.contrib import admin
+from . models import TransportRoute, PassengerRoute
 
-# Register your models here.
+
+admin.site.register(TransportRoute)
+admin.site.register(PassengerRoute)
