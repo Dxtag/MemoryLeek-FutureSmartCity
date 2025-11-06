@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = os.environ.get('DEBUG', False) == 'True'
+DEBUG = os.environ.get("DEBUG")=="True"
 
 _allowed_hosts = os.environ.get('ALLOWED_HOSTS')
 ALLOWED_HOSTS = _allowed_hosts.split(",") if _allowed_hosts else ["*",]
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'route'
+    'route',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'gismodule.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/"templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,7 +121,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CREATE_ROUTE_REDIRECT_URL = "/accounts/profile"
+ROUTE_CAR_MODEL = "accounts.car"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
