@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+  <h1>Witaj w Aplikacji Tras</h1>
+  <p>Wybierz jedną z opcji poniżej, aby rozpocząć.</p>
+
+  <div class="grid">
+    <a href="#" class="card">
+      <article>
+        <img src="https://picsum.photos/640/480?1" alt="Mapa tras" style="border-radius: 5px;">
+        <h3>Mapa tras</h3>
+        <p>Przeglądaj dostępne trasy i punkty na mapie.</p>
+      </article>
+    </a>
+
+    <a href="#" class="card">
+      <article>
+        <img src="https://picsum.photos/640/480?2" alt="Stwórz trasę" style="border-radius: 5px;">
+        <h3>Stwórz trasę</h3>
+        <p>Utwórz własną trasę, wybierając punkty na mapie.</p>
+      </article>
+    </a>
+</div>
+<div class="grid">
+    <a href="#" class="card">
+      <article>
+        <img src="{% static "img/konto.jpg" %}" alt="Twoje konto" style="border-radius: 5px;">
+        <h3>Twoje konto</h3>
+        <p>Zarządzaj swoimi trasami i ustawieniami użytkownika.</p>
+      </article>
+    </a>
+
+    <a href="#" class="card">
+      <article>
+        <img src="https://picsum.photos/640/480?4" alt="Statystyki" style="border-radius: 5px;">
+        <h3>Statystyki</h3>
+        <p>Sprawdź statystyki dotyczące ruchu i przejazdów.</p>
+      </article>
+    </a>
+</div>
+<div class="grid">
+    <a href="#" class="card">
+      <article>
+        <img src="https://picsum.photos/640/480?5" alt="O projekcie" style="border-radius: 5px;">
+        <h3>O projekcie</h3>
+        <p>Dowiedz się więcej o celu i założeniach projektu.</p>
+      </article>
+    </a>
+
+    <a href="#" class="card">
+      <article>
+        <img src="https://picsum.photos/640/480?6" alt="Kontakt" style="border-radius: 5px;">
+        <h3>Kontakt</h3>
+        <p>Skontaktuj się z nami w sprawie projektu lub pomocy.</p>
+      </article>
+    </a>
+  </div>
+</div>
+{% endblock main %}
+
+{% block footer %}
+<footer class="container">
+  <small>© 2025 Aplikacja Tras</small>
+</footer>
+{% endblock footer %}
+
+{% block after %}
+{% endblock after %}

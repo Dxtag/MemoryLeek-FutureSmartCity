@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+<header>
+    <h1>Demo Aplikacji [Nazwa]</h1>
+    <nav>
+        <ol>
+            <li><a href="#o-aplikacji">O aplikacji</a></li>
+            <li><a href="#konta">Moduł kont</a></li>
+            <li><a href="#modul-tras">Moduł tras</a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+        </ol>
+    </nav>
+</header>
+<main>
+    <section>
+        <h2 id="#o-aplikacji">O aplikacji</h2>
+        <p>Demo ma zaimplementowane moduły planowania tras (osobowych i towarowych) oraz system kont.</p>
+    </section>
+    <section>
+        <h2>Moduł kont</h2>
+        <p>Moduł kont zezwala na rejestrację, logowanie oraz dodawanie aut do konta.</p>
+        <p>W celu zarządzania z poziomu panelu administracyjnego wymagane jest konto superusera. 
+            Założenie konta superusera w przypadku korzystania z dołączonych plików dockera: </p>
+        <code>
+         docker compose exec gis-server python manage.py createsuperuser
+        </code>
+    </section>
+        <section>
+        <h2 href="#modul-tras">Moduł tras</h2>
+        <p>Moduł tras umożliwia utworzenie trasy transportowej lub pasażerskiej i dołączenie do nich.</p>
+        <h3>Trasy transportowe</h3>
+        <p>Trasa transportowa składa się z drogi w postaci polilinii, wymiarów maksymalnych mozliwego do przewiezienia towaru, daty startu oraz dodatkowego dowolnego opisu.</p>
+        <p>Użytkownik wyszukujący trasę zostanie sparowany z użytkownikiem któy utworzył trasę o najbliższych możliwych początkach i końcach.</p>
+    </section>
+</main>
+{% endblock main %}
+{% block footer %}
+{% endblock footer %}
+{% block after %}
+{% endblock after %}

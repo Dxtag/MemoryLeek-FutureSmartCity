@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Leaflet Routing Machine Example</title>
+    {% block head %}{% endblock head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/route/leaflet-routing-machine.css" />
+    <style>
+    :root {
+      --primary: #2563eb;
+      --background: #f8fafc;
+      --text: #1e293b;
+      --white: #fff;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 1rem 2rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem;
+      gap: 1.5rem;
+    }
+
+    /* Map */
+    .map-container {
+      flex: 2 1 600px;
+      background: #e2e8f0;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    #map {
+      height: 80vh;
+      width: 100%;
+    }
+
+    /* Form */
+    .form-container {
+      flex: 1 1 300px;
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    input {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    input[type="submit"] {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.7rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    input[type="submit"]:hover {
+      background: #1d4ed8;
+    }
+    input[type="hidden"]{
+        display:none;
+    }
+
+    footer {
+      background: #1e293b;
+      color: var(--white);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        flex-direction: column;
+      }
+
+      .map-container,
+      .form-container {
+        flex: 1 1 100%;
+      }
+
+      #map {
+        height: 50vh;
+      }
+    }
+    </style>
+</head>
+<body>
+    <header>
+    <nav>
+            <a href="">Strona Główna</a>
+            <a href="">Stwórz trasę towarową</a>
+            <a href="">Stwórz trasę osobową</a>
+            <a href="">Konto</a>
+    </nav>
+    </header>
+    <main>
+    {% block main %}
+    {% endblock main %}
+    </main>
+    <footer>
+    {% block footer %}
+    {% endblock footer %}
+    </footer>
+    {% block after %}
+    {% endblock after %}
+</body>
+</html>

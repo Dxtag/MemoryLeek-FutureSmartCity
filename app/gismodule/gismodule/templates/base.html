@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Leaflet Routing Machine Example</title>
+    {% block head %}{% endblock head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/route/leaflet-routing-machine.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+    <style>
+
+    </style>
+</head>
+<body>
+  <nav class="container">
+  <ul>
+    <li><strong>Nazwa</strong></li>
+  </ul>
+  <ul>
+    <li><a href="{% url 'index' %}">Strona Główna</a></li>
+    <li><a href="{% url 'route:index' %}">Trasy</a></li>
+    {% comment %} <li><a href="{% url 'account:profiles' %}">Konto</a></li> {% endcomment %}
+  </ul>
+</nav>
+
+    <main class="container">
+    {% block main %}
+    
+    {% endblock main %}
+    </main>
+    <footer>
+    {% block footer %}
+    {% endblock footer %}
+    </footer>
+    {% block after %}
+    {% endblock after %}
+</body>
+</html>
