@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block main %}
+<section>
+    <div id="map" style="height: 70vh;"></div>
+</section>
+{% for r in routes %}
+<article>
+    <table>
+        <h2>Route id:{{r.pk}}</h2>
+        <thead>
+            <tr>
+                <td>Param</td>
+                <td>Value</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Max weight</td>
+                <td>{{r.max_weight}}</td>
+            </tr>
+            <tr>
+                <td>max_width</td>
+                <td>{{r.max_width}}</td>
+            </tr>
+            <tr>
+                <td>max_height</td>
+                <td>{{r.max_height}}</td>
+            </tr>
+            <tr>
+                <td>max_depth</td>
+                <td>{{r.max_depth}}</td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>{{r.description}}</td>
+            </tr>
+            <tr>
+                <td>start date</td>
+                <td>{{r.start_date}}</td>
+            </tr>
+        </tbody>
+        <button onclick="show_geojson({{r.geom.geojson}})">Show on map</button>
+    </table>
+</article>
+{% endfor %}
+
+{% endblock main %}
+{% block footer %}
+© 2025
+{% endblock footer %}
+{% block after %}
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+<script>
+    let lineLayer;
+    function show_geojson(e) {
+        let coords = [];
+
+        e.coordinates.forEach(element => {
+            coords.push(new Array(element[1],element[0]));
+        });
+
+        if (lineLayer) {
+            lineLayer.remove();
+        }
+
+        lineLayer = new L.polyline(coords, {
+            color: 'blue',
+            weight: 3,
+        }).addTo(map);
+    }
+    const start = document.getElementById("id_start");
+    const end = document.getElementById("id_end");
+
+    const map = L.map('map', {
+        center: [51.78122320285037, 19.46434020996094],
+        zoom: 10
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+    let start = {{ route_join.start.json}};
+    let end = {{ route_join.end.json}};
+</script>
+
+{% endblock after %}

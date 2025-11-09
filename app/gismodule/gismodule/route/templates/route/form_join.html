@@ -61,7 +61,7 @@
         attribution: '© OpenStreetMap contributors',
     }).addTo(map);
 
-
+    
     map.on('click', function (e) {
         
         const point = e.latlng;
@@ -70,13 +70,13 @@
 
         if (clickCount === 0) {
             const marker = L.marker(point).addTo(map);
-            start.value = "POINT ("+point.lat+" "+point.lng+")"
+            start.value = "POINT ("+point.lng+" "+point.lat+")"
             markers.push(marker)
             clickCount++;
         } 
         else if (clickCount === 1) {
             const marker = L.marker(point).addTo(map);
-            end.value = "POINT ("+point.lat+" "+point.lng+")"
+            end.value = "POINT ("+point.lng+" "+point.lat+")"
             markers.push(marker)
             clickCount++;
         }else{

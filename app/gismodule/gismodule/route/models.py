@@ -18,6 +18,7 @@ class Route(models.Model):
     geom = LineStringField(_("Route"))
     start_date = models.DateTimeField(_("Start time"), auto_now=False, auto_now_add=False)
 
+
 class TransportRoute(Route):
     max_weight = models.IntegerField(_("Max weight (kg)"))
     max_width = models.IntegerField(_("Max width (cm)"))
@@ -29,7 +30,13 @@ class PassengerRoute(Route):
     max_people = models.IntegerField(_("Max number of passengers"))
     description = models.TextField(_("Description"))
 
-class JoinPassengerRoute(models.Model):
-    route = models.ForeignKey(PassengerRoute, verbose_name=_(""), on_delete=models.CASCADE, null=True, blank=True)
-    passenger = models.ForeignKey(PassengerRoute, verbose_name=_(""), on_delete=models.CASCADE)
+class JoinTransportRoute(models.Model):
+    start = PointField(verbose_name=_("Start"))
+    end = PointField(verbose_name=_("Start"))
+    route = models.ForeignKey(TransportRoute, verbose_name=_("Joined route"), 
+                              related_name="joined_transport_route", on_delete=models.CASCADE, null=True, blank=True)
+    weight = models.IntegerField(_("weight (kg)"))
+    width = models.IntegerField(_("width (cm)"))
+    height = models.IntegerField(_("height (cm)"))
+    depth = models.IntegerField(_("depth (cm)"))
     created= models.DateTimeField(_("Created"), auto_now_add=True)

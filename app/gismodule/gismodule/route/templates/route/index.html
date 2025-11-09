@@ -5,18 +5,35 @@
   <p>Wybierz jedną z opcji poniżej, aby rozpocząć.</p>
 
   <div class="grid">
-    <a href="#" class="card">
+    <a href="" class="card">
       <article>
-        <img src="https://picsum.photos/640/480?1" alt="Mapa tras" style="border-radius: 5px;">
-        <h3>Mapa tras</h3>
+        <img src="{% static "img/znajdz_trase_niebieski.PNG" %}" alt="Mapa tras" style="border-radius: 5px;">
+        <h3>Znajdź trasę pasażerską</h3>
         <p>Przeglądaj dostępne trasy i punkty na mapie.</p>
       </article>
     </a>
 
-    <a href="#" class="card">
+    <a href="{% url 'route:passenger' %}" class="card">
       <article>
-        <img src="https://picsum.photos/640/480?2" alt="Stwórz trasę" style="border-radius: 5px;">
-        <h3>Stwórz trasę</h3>
+        <img src="{% static "img/stworz_trase_niebieski.PNG" %}" alt="Stwórz trasę" style="border-radius: 5px;">
+        <h3>Stwórz trasę pasażerską</h3>
+        <p>Utwórz własną trasę, wybierając punkty na mapie.</p>
+      </article>
+    </a>
+</div>
+  <div class="grid">
+    <a href="{% url 'route:transport_join' %}" class="card">
+      <article>
+        <img src="{% static "img/znajdz_trase_zielony.PNG" %}" alt="Mapa tras" style="border-radius: 5px;">
+        <h3>Znajdź trasę transportową</h3>
+        <p>Przeglądaj dostępne trasy i punkty na mapie.</p>
+      </article>
+    </a>
+
+    <a href="{% url 'route:transport' %}" class="card">
+      <article>
+        <img src="{% static "img/stworz_trase_zielony.PNG" %}" alt="Stwórz trasę" style="border-radius: 5px;">
+        <h3>Stwórz trasę transportową</h3>
         <p>Utwórz własną trasę, wybierając punkty na mapie.</p>
       </article>
     </a>
@@ -38,24 +55,7 @@
       </article>
     </a>
 </div>
-<div class="grid">
-    <a href="#" class="card">
-      <article>
-        <img src="https://picsum.photos/640/480?5" alt="O projekcie" style="border-radius: 5px;">
-        <h3>O projekcie</h3>
-        <p>Dowiedz się więcej o celu i założeniach projektu.</p>
-      </article>
-    </a>
 
-    <a href="#" class="card">
-      <article>
-        <img src="https://picsum.photos/640/480?6" alt="Kontakt" style="border-radius: 5px;">
-        <h3>Kontakt</h3>
-        <p>Skontaktuj się z nami w sprawie projektu lub pomocy.</p>
-      </article>
-    </a>
-  </div>
-</div>
 {% endblock main %}
 
 {% block footer %}
