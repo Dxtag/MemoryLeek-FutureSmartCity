@@ -1,6 +1,6 @@
 from django import forms
 from django.conf import settings
-from .models import PassengerRoute, TransportRoute, JoinTransportRoute
+from .models import JoinPassengerRoute, PassengerRoute, TransportRoute, JoinTransportRoute
 from django.forms import DateTimeField, DateTimeInput,IntegerField, HiddenInput
 from django.db import models
 from django.apps import apps
@@ -39,13 +39,19 @@ class TransportRouteForm(forms.ModelForm):
 class TransportJoinRouteForm(forms.ModelForm):
     class Meta:
         model = JoinTransportRoute
-        exclude=("route","created")
+        exclude=("route","created", "creator")
         widgets={
             "start":HiddenInput(),
-            "end":HiddenInput()
+            "end":HiddenInput(),
+            "start_time":DateTimeInput(attrs={"type":"datetime-local"})
         }
 
-class PassengerJoinRouteForm(forms.Form):
-    start = forms.Field(required=True, widget=HiddenInput())
-    end = forms.Field(required=True, widget=HiddenInput())
-    later_than = DateTimeField(required=True, widget=DateTimeInput())
+class PassengerJoinRouteForm(forms.ModelForm):
+        class Meta:
+            model = JoinPassengerRoute
+            exclude=("route","created", "creator")
+            widgets={
+                "start":HiddenInput(),
+                "end":HiddenInput(),
+                "start_time":DateTimeInput(attrs={"type":"datetime-local"})
+            }

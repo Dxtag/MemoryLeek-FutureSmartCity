@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block main %}
+<section>
+    <h1>JoinRoute {{route_join.pk}}</h1>
+</section>
+<section>
+    <div id="map" style="height: 70vh;"></div>
+</section>
+{% if route_join.route %}
+<h2><a href="{{route_join.route.get_absolute_url}}">Joined to Route id:{{route_join.route.pk}}</a></h2>
+{% else %}
+{% for r in routes %}
+<article>
+    <table>
+        <h2><a href="{{r.get_absolute_url}}">Route id:{{r.pk}}</a></h2>
+        <thead>
+            <tr>
+                <td>Param</td>
+                <td>Value</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Max people</td>
+                <td>{{r.max_people}}</td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>{{r.description}}</td>
+            </tr>
+            <tr>
+                <td>start date</td>
+                <td>{{r.start_date}}</td>
+            </tr>
+        </tbody>
+        {% if not r.route %}
+        <form method="POST">
+        {% csrf_token %}
+        <input typ="hidden" style="display:none" name="route" id="route" value="{{r.pk}}">
+        <input type="submit" value="join">
+        </form>
+        {% endif %}
+        <button onclick='show_geojson({{r.geom.geojson|safe}})'>Show on map</button>
+    </table>
+</article>
+{% empty %}
+<article>
+    <h2>No routes for you :/</h2>
+    <p>There are no routes matching your parameters at the moment, please try again later.</p>
+</article>
+
+{% endfor %}
+{% endif %}
+{% endblock main %}
+{% block footer %}
+© 2025
+{% endblock footer %}
+{% block after %}
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+<script>
+    let lineLayer;
+    function show_geojson(e) {
+        let coords = [];
+
+        e.coordinates.forEach(element => {
+            coords.push(new Array(element[1],element[0]));
+        });
+
+        if (lineLayer) {
+            lineLayer.remove();
+        }
+
+        lineLayer = new L.polyline(coords, {
+            color: 'blue',
+            weight: 3,
+        }).addTo(map);
+    }
+    const start = document.getElementById("id_start");
+    const end = document.getElementById("id_end");
+
+    const map = L.map('map', {
+        center: [51.78122320285037, 19.46434020996094],
+        zoom: 10
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+    let start_point = {{ route_join.start.json|safe}};
+    let end_point = {{ route_join.end.json|safe}};
+    L.marker(L.latLng(start_point.coordinates[1], start_point.coordinates[0])).addTo(map).bindPopup("<b>start</b>");
+    L.marker(L.latLng(end_point.coordinates[1], end_point.coordinates[0])).addTo(map).bindPopup("<b>end</b>");
+</script>
+
+{% endblock after %}

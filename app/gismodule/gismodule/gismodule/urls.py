@@ -19,9 +19,11 @@ from django.urls import path,include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
 import route.urls
+import accounts.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('route/', include(route.urls)),
+    path('accounts/', include(accounts.urls)),
     path("", TemplateView.as_view(template_name="index.html"), name="index")
 ]
 
