@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block main %}
+<section>
+    <h1>Passenger Route {{route_join.pk}}</h1>
+</section>
+<section>
+    <div id="map" style="height: 70vh;"></div>
+</section>
+<article>
+<table>
+            <h2>Route id:{{r.pk}}</h2>
+            <thead>
+                <tr>
+                    <td>Param</td>
+                    <td>Value</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Max passengers</td>
+                    <td>{{r.max_people}}</td>
+                </tr>
+                <tr>
+                    <td>description</td>
+                    <td>{{r.description}}</td>
+                </tr>
+                <tr>
+                    <td>start date</td>
+                    <td>{{r.start_date}}</td>
+                </tr>
+            </tbody>
+        </table>
+</article>
+
+
+{% endblock main %}
+{% block footer %}
+© 2025
+{% endblock footer %}
+{% block after %}
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+<script>
+
+    
+    const map = L.map('map', {
+        center: [51.78122320285037, 19.46434020996094],
+        zoom: 10
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+
+
+    let lineLayer;
+    let data = {{r.geom.geojson|safe}};
+    function show_geojson(e) {
+        let coords = [];
+
+        e.coordinates.forEach(element => {
+            coords.push(new Array(element[1],element[0]));
+        });
+
+        if (lineLayer) {
+            lineLayer.remove();
+        }
+
+        lineLayer = new L.polyline(coords, {
+            color: 'blue',
+            weight: 3,
+        }).addTo(map);
+    }
+    show_geojson(data);
+    const start = document.getElementById("id_start");
+    const end = document.getElementById("id_end");
+
+</script>
+
+{% endblock after %}

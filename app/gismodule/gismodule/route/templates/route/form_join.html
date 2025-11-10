@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block main %}
+
+<article>
+  <header>
+    <h1>{{title}}</h1>
+    <p>Click on map to select route, third click removes all markers.</p>
+  </header>
+
+  <div class="grid">
+    <!-- Map -->
+    <section>
+      <div id="map" style="height: 70vh;"></div>
+    </section>
+
+    <!-- Form -->
+    <section>
+      <form method="post">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+            <label>
+            {{ field.label_tag }}
+            </label>
+            {{ field }}
+            {% if field.errors %}
+              <small class="error">{{ field.errors }}</small>
+            {% endif %}
+          
+        {% endfor %}
+
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+</article>
+
+{% endblock main %}
+{% block footer %}
+    © 2025 
+{% endblock footer %}
+{% block after %}
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script>
+    let route_data = [];
+    let markers = [];
+    let clickCount = 0;
+
+    const start = document.getElementById("id_start");
+    const end = document.getElementById("id_end");
+
+    const map = L.map('map', {
+        center: [51.78122320285037, 19.46434020996094],
+        zoom: 10
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+    
+    map.on('click', function (e) {
+        
+        const point = e.latlng;
+
+        console.log(point);
+
+        if (clickCount === 0) {
+            const marker = L.marker(point).addTo(map);
+            start.value = "POINT ("+point.lng+" "+point.lat+")"
+            markers.push(marker)
+            clickCount++;
+        } 
+        else if (clickCount === 1) {
+            const marker = L.marker(point).addTo(map);
+            end.value = "POINT ("+point.lng+" "+point.lat+")"
+            markers.push(marker)
+            clickCount++;
+        }else{
+            clickCount = 0
+            markers.forEach((marker) => {map.removeLayer(marker)});
+            start.value = "";
+            end.value = "";
+        }
+        
+    });
+</script>
+
+{% endblock after %}

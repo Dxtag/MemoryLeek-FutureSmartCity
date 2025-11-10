@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block main %}
+
+<article>
+  <header>
+    <h1>Create route</h1>
+    <p>Click on map to select route, third click removes all markers.</p>
+  </header>
+
+  <div class="grid">
+    <!-- Map -->
+    <section>
+      <div id="map" style="height: 70vh;"></div>
+    </section>
+
+    <!-- Form -->
+    <section>
+      <form method="post">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+          <label>
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              <small class="error">{{ field.errors }}</small>
+            {% endif %}
+          </label>
+        {% endfor %}
+
+        <button type="submit">Wyślij</button>
+      </form>
+    </section>
+  </div>
+</article>
+
+{% endblock main %}
+{% block footer %}
+    © 2025 
+{% endblock footer %}
+{% block after %}
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="/static/route/leaflet-routing-machine.js"></script>
+    <script>
+        let route_data;
+        const map = L.map('map', {
+            center: [51.78122320285037,19.46434020996094],
+            zoom: 10
+        });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+
+        }).addTo(map);
+
+        const control = L.Routing.control({
+            waypoints: [],
+            routeWhileDragging: true,
+            serviceUrl: 'http://localhost:5000/route/v1'
+        }).addTo(map).on('routeselected', function (e) {
+            var route = e.route;
+            route_data = route.coordinates
+            let geojson_route_data = []
+            route_data.forEach((e)=>{
+                geojson_route_data.push(e.lng+" "+e.lat)
+            })
+            document.getElementById("id_geom").value = "LINESTRING (" + geojson_route_data.toString()+")";
+            console.log(document.getElementById("id_geom").value)
+        })
+
+
+        let clickCount = 0;
+        const waypoints = [];
+
+        map.on('click', function (e) {
+            clickCount++;
+
+            const step = (clickCount % 3);
+
+            if (step === 1) {
+                waypoints[0] = e.latlng;
+                control.setWaypoints([waypoints[0]]);
+            }
+            else if (step === 2) {
+                waypoints[1] = e.latlng;
+                control.setWaypoints([waypoints[0], waypoints[1]]);
+            }
+            else if (step === 0) {
+                control.setWaypoints([]);
+                waypoints.length = 0;
+                route_data = null;
+            }
+        });
+    </script>
+{% endblock after %}

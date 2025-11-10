@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+  <div class="grid">
+    <a href="{% url 'route:passenger_join' %}" class="card">
+      <article>
+        <img src="{% static 'img/trasa_pasazerska_znajdz.png' %}" alt="City with blue markers" style="border-radius: 5px;">
+        <h3>Find passenger route</h3>
+        <p>Mark the start and end of your planned trip and join someone.</p>
+      </article>
+    </a>
+
+    <a href="{% url 'route:passenger' %}" class="card">
+      <article>
+        <img src="{% static "img/stworz_trase_niebieski.PNG" %}" alt="Map of the city of Łódź " style="border-radius: 5px;">
+        <h3>Create passenger route</h3>
+        <p>Are you going somewhere and have empty seats in your car?</p>
+      </article>
+    </a>
+</div>
+  <div class="grid">
+    <a href="{% url 'route:transport_join' %}" class="card">
+      <article>
+        <img src="{% static "img/znajdz_trase_niebieski.PNG" %}" alt="City with green markers" style="border-radius: 5px;">
+        <h3>Find transport route</h3>
+        <p>Do you need to transport something?</p>
+      </article>
+    </a>
+
+    <a href="{% url 'route:transport' %}" class="card">
+      <article>
+        <img src="{% static "img/stworz_trase_zielony.PNG" %}" alt="Map of the city of Łódź" style="border-radius: 5px;">
+        <h3>Create transport route</h3>
+        <p>Are you driving empty and would like to help someone?</p>
+      </article>
+    </a>
+</div>
+<div class="grid">
+    <a href="#" class="card">
+      <article>
+        <img src="{% static "img/konto.jpg" %}" alt="Blue man" style="border-radius: 5px;">
+        <h3>Your account</h3>
+        <p>Manage your routes and user settings.</p>
+      </article>
+    </a>
+
+    <a href="#" class="card">
+      <article>
+        <img src="{% static "img/statystyki.png"  %}" alt="A blue man against the background of a board." style="border-radius: 5px;">
+        <h3>Statistics</h3>
+        <p>Check traffic and transit statistics.</p>
+      </article>
+    </a>
+</div>
+
+{% endblock main %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block after %}
+{% endblock after %}
