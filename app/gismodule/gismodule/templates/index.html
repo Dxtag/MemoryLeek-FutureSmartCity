@@ -8,18 +8,19 @@
             <li><a href="#o-aplikacji">O aplikacji</a></li>
             <li><a href="#konta">Moduł kont</a></li>
             <li><a href="#modul-tras">Moduł tras</a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
         </ol>
     </nav>
 </header>
 <main>
     <section>
-        <h2 id="#o-aplikacji">O aplikacji</h2>
+    <img src="{% static "img/mapa.png" %}">
+    </section>
+    <section>
+        <h2 id="o-aplikacji">O aplikacji</h2>
         <p>Demo ma zaimplementowane moduły planowania tras (osobowych i towarowych) oraz system kont.</p>
     </section>
     <section>
-        <h2>Moduł kont</h2>
+        <h2 id="konta">Moduł kont</h2>
         <p>Moduł kont zezwala na rejestrację, logowanie oraz dodawanie aut do konta.</p>
         <p>W celu zarządzania z poziomu panelu administracyjnego wymagane jest konto superusera. 
             Założenie konta superusera w przypadku korzystania z dołączonych plików dockera: </p>
@@ -29,7 +30,7 @@
         <p>Automatycznie tworzone jets konto u:admin p:admin jeżeli wykorzystanu jest skrypt run.sh</p>
     </section>
         <section>
-        <h2 href="#modul-tras">Moduł tras</h2>
+        <h2 id="modul-tras">Moduł tras</h2>
         <p>Moduł tras umożliwia utworzenie trasy transportowej lub pasażerskiej i dołączenie do nich.</p>
         <h3>Trasy transportowe</h3>
         <p>Trasa transportowa składa się z drogi w postaci polilinii, wymiarów maksymalnych mozliwego do przewiezienia towaru, daty startu oraz dodatkowego dowolnego opisu.</p>
@@ -38,9 +39,9 @@
         <p>Trasa pasażerska składa się z drogi w postaci polilinii,liczby wolnych miejsc w aucie,daty startu oraz dodatkowego dowolnego opisu.</p>
         <p>Użytkownik wyszukujący trasę zostanie sparowany z użytkownikiem któy utworzył trasę o najbliższych możliwych początkach i końcach, oraz o czasie startu późniejszym niż czas startu użytkownika wyszukującego trasę, pod warunkiem że jest jescze wolne miejsce w aucie.</p>
         <h3>Statystyki</h3>
-        <p>Statystyki są zbiorem wsyztskich tras (łącznie z datami </p>
-        <p>Użytkownik wyszukujący trasę zostanie sparowany z użytkownikiem któy utworzył trasę o najbliższych możliwych początkach i końcach, oraz o czasie startu późniejszym niż czas startu użytkownika wyszukującego trasę, pod warunkiem że jest jescze wolne miejsce w aucie.</p>
-    
+        <p>Statystyki są zbiorem wszystkich tras stworzonych przez użytkowników</p>
+        <p>W demo zaimplementowano tylko lokalne wyświetlanie wszystki tras - docelowo będzie to usługa WFS, tak żeby bez dodatkowych kosztów za oprogramowanie (np poprzez darmowy program qgis) można było wykonywać analizy na pozyskiwanych danach</p>
+        <p>Aktualnie wyświetlane są dokładna data i czas - do rozpatrzenia jest udostępnienia danych tylko w zakresie dni robocze / święta/ weekendy i dzielnie godzin na przedziały np. 2 godzinne zamiast udostępniania pełnych danych.</p>
     </section>
 </main>
 {% endblock main %}
