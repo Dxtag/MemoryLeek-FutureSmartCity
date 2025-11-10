@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block main %}
-<article>
-    <form method="POST">
-        {% csrf_token %}
-
-    </form>
-</atricle>
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
 
 {% endblock main %}
 

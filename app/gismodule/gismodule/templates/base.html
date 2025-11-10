@@ -288,7 +288,11 @@
   <ul>
     <li><a href="{% url 'index' %}">Index</a></li>
     <li><a href="{% url 'route:index' %}">Routes</a></li>
+    {% if user.is_authenticated %}
     <li><a href="{% url 'accounts:profile' %}">{{user.get_full_name}} - Profile</a></li>
+    {% else %}
+    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+    {% endif %}
   </ul>
 </nav>
   {% if messages %}
