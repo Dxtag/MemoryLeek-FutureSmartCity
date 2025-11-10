@@ -60,12 +60,15 @@ class PassengerRouteJoinFindView(LoginRequiredMixin,View):
         potential_routes = PassengerRoute.objects.filter(
             geom__distance_lte=(route_join.start,settings.MAX_TRANSPORT_ROUTE_OFF_DISTANCE)).filter(
             geom__distance_lte=(route_join.end,settings.MAX_TRANSPORT_ROUTE_OFF_DISTANCE),
+            start_date__gte=route_join.start_time
             )
         # Czy w dobrym kierunku
         correct_routes = []
         for r in potential_routes:
             start_line = Point(*r.geom.coords[0])
-            if route_join.start.distance(start_line) < route_join.end.distance(start_line):
+            good_direction = route_join.start.distance(start_line) < route_join.end.distance(start_line)
+            free_seat = r.joined_passenger_route.count() < r.max_people
+            if good_direction and free_seat:
                 correct_routes.append(r)
         return correct_routes
                 
@@ -125,7 +128,8 @@ class TransportRouteJoinFindView(LoginRequiredMixin,View):
             max_weight__gte=route_join.weight,
             max_width__gte=route_join.width,
             max_height__gte=route_join.height,
-            max_depth__gte=route_join.depth
+            max_depth__gte=route_join.depth,
+            start_date__gte=route_join.start_time
             )
         correct_routes=[]
         # Czy w dobrym kierunku
