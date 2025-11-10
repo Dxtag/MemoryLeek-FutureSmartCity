@@ -26,13 +26,21 @@
         <code>
          docker compose exec gis-server python manage.py createsuperuser
         </code>
+        <p>Automatycznie tworzone jets konto u:admin p:admin jeżeli wykorzystanu jest skrypt run.sh</p>
     </section>
         <section>
         <h2 href="#modul-tras">Moduł tras</h2>
         <p>Moduł tras umożliwia utworzenie trasy transportowej lub pasażerskiej i dołączenie do nich.</p>
         <h3>Trasy transportowe</h3>
         <p>Trasa transportowa składa się z drogi w postaci polilinii, wymiarów maksymalnych mozliwego do przewiezienia towaru, daty startu oraz dodatkowego dowolnego opisu.</p>
-        <p>Użytkownik wyszukujący trasę zostanie sparowany z użytkownikiem któy utworzył trasę o najbliższych możliwych początkach i końcach.</p>
+        <p>Użytkownik wyszukujący trasę zostanie sparowany z użytkownikiem któy utworzył trasę o najbliższych możliwych początkach i końcach, oraz o czasie startu późniejszym niż czas startu użytkownika wyszukującego trasę.</p>
+        <h3>Trasy pasażerskie</h3>
+        <p>Trasa pasażerska składa się z drogi w postaci polilinii,liczby wolnych miejsc w aucie,daty startu oraz dodatkowego dowolnego opisu.</p>
+        <p>Użytkownik wyszukujący trasę zostanie sparowany z użytkownikiem któy utworzył trasę o najbliższych możliwych początkach i końcach, oraz o czasie startu późniejszym niż czas startu użytkownika wyszukującego trasę, pod warunkiem że jest jescze wolne miejsce w aucie.</p>
+        <h3>Statystyki</h3>
+        <p>Statystyki są zbiorem wsyztskich tras (łącznie z datami </p>
+        <p>Użytkownik wyszukujący trasę zostanie sparowany z użytkownikiem któy utworzył trasę o najbliższych możliwych początkach i końcach, oraz o czasie startu późniejszym niż czas startu użytkownika wyszukującego trasę, pod warunkiem że jest jescze wolne miejsce w aucie.</p>
+    
     </section>
 </main>
 {% endblock main %}

@@ -159,3 +159,17 @@ class PassengerRouteDetailView(DetailView):
     model = PassengerRoute
     template_name = "route/passengerroute_detail.html"
     context_object_name = "r"
+
+class StatisticsView(View):
+    def prepare_data(self):
+        t = TransportRoute.objects.all()
+        p = PassengerRoute.objects.all()
+        data = []
+        for i in t:
+            data.append(["transport",str(i.start_date),i.geom.json])
+        for i in p:
+            data.append(["passenger",str(i.start_date),i.geom.json])
+        return data
+
+    def get(self,request) -> None:
+        return render(request, template_name="route/statistics.html", context={"statistics":self.prepare_data()})

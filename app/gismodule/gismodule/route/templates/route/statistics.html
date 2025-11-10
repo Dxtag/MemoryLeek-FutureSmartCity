@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block main %}
+<section>
+    <div id="map" style="height: 70vh;"></div>
+</section>
+{% endblock main %}
+{% block footer %}
+© 2025
+{% endblock footer %}
+{% block after %}
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+<script>    
+    const map = L.map('map', {
+        center: [51.78122320285037, 19.46434020996094],
+        zoom: 10
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+
+    let data = {{statistics | safe}};
+    const randomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
+    let lineLayer =[];
+    function show_geojson(t,d,e) {
+        let coords = [];
+        e.coordinates.forEach(element => {
+            coords.push(new Array(element[1],element[0]));
+        });
+
+        L.polyline(coords, {
+            color: randomColor(),
+            weight: 3,
+        }).addTo(map).bindTooltip("<b>Type: </b>"+t +"<br><b>Date: </b>"+d);
+    }
+    data.forEach(element => {
+        let obj = JSON.parse(element[2]);
+        show_geojson(element[0],element[1],obj);
+        })
+</script>
+
+{% endblock after %}

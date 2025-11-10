@@ -36,7 +36,7 @@
     </a>
 </div>
 <div class="grid">
-    <a href="#" class="card">
+    <a href="{% url 'accounts:profile' %}" class="card">
       <article>
         <img src="{% static "img/konto.jpg" %}" alt="Blue man" style="border-radius: 5px;">
         <h3>Your account</h3>
@@ -44,7 +44,7 @@
       </article>
     </a>
 
-    <a href="#" class="card">
+    <a href="{% url 'route:statistics' %}" class="card">
       <article>
         <img src="{% static "img/statystyki.png"  %}" alt="A blue man against the background of a board." style="border-radius: 5px;">
         <h3>Statistics</h3>
